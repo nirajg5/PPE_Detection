@@ -1,6 +1,6 @@
-# 🦺 PPE Detection System - YOLOv9 Real-Time
+# PPE Detection System - YOLOv9 Real-Time
 
-## 📁 Project Directory Structure
+## Project Directory Structure
 
 ```
 ppe_detection/
@@ -37,7 +37,7 @@ ppe_detection/
 └── evaluate.py                  ← Model evaluation & metrics
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # 1. Install dependencies
@@ -57,7 +57,7 @@ python main.py --zone-check            # Enable zone-based rules
 python main.py --no-alerts             # Disable sound alerts
 ```
 
-## 📦 PPE Classes Detected
+## PPE Classes Detected
 1. Hard Hat / Helmet
 2. Safety Vest / High-Vis Jacket
 3. Gloves
@@ -68,7 +68,7 @@ python main.py --no-alerts             # Disable sound alerts
 8. Ear Protection
 9. Person (for compliance pairing)
 
-## 🎯 Features
+## Features
 - Real-time YOLOv9 detection via laptop camera
 - Multi-person tracking with persistent IDs
 - Per-person PPE compliance checking
