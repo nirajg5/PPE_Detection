@@ -1,0 +1,58 @@
+# ============================================================
+# YOLOv9 Model Configuration
+# ============================================================
+
+model:
+  # Model variant: yolov9t, yolov9s, yolov9m, yolov9c, yolov9e
+  # t=tiny, s=small, m=medium, c=compact, e=extended
+  variant: yolov9c               # Best balance for PPE detection
+  weights: models/yolov9c.pt     # Local weights path (auto-downloaded)
+  pretrained_url: "https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov9c.pt"
+
+# --- Inference Parameters ---
+inference:
+  confidence_threshold: 0.45    # Min confidence to accept detection
+  iou_threshold: 0.45           # NMS IoU threshold (overlap removal)
+  max_detections: 100           # Max objects per frame
+  input_size: 640               # Input image size (640x640)
+  device: "auto"                # auto, cpu, cuda, mps
+  half_precision: false         # FP16 (GPU only, faster)
+  augment: false                # Test-time augmentation (slower, more accurate)
+
+# --- Camera Settings ---
+camera:
+  index: 0                      # Camera device index
+  width: 1280
+  height: 720
+  fps: 30
+  buffer_size: 1                # Low buffer = lower latency
+
+# --- Tracker Settings ---
+tracker:
+  type: "bytetrack"             # bytetrack or botsort
+  track_high_thresh: 0.5
+  track_low_thresh: 0.1
+  new_track_thresh: 0.6
+  track_buffer: 30
+  match_thresh: 0.8
+
+# --- Performance ---
+performance:
+  skip_frames: 0                # Process every N frames (0=all)
+  display_fps: true
+  display_resolution: true
+
+# --- Training Parameters (if fine-tuning) ---
+training:
+  epochs: 100
+  batch_size: 16
+  learning_rate: 0.01
+  weight_decay: 0.0005
+  momentum: 0.937
+  warmup_epochs: 3
+  image_size: 640
+  workers: 8
+  patience: 50                  # Early stopping patience
+  save_period: 10               # Save checkpoint every N epochs
+  project: "runs/train"
+  name: "ppe_yolov9"

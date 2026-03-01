@@ -1,0 +1,108 @@
+# ============================================================
+# PPE Detection Configuration
+# ============================================================
+
+# --- PPE Class Definitions ---
+# Index: class_name
+classes:
+  0: person
+  1: hard-hat
+  2: safety-vest
+  3: gloves
+  4: safety-goggles
+  5: face-mask
+  6: safety-boots
+  7: harness
+  8: ear-protection
+
+# --- Display Colors (BGR format) ---
+class_colors:
+  person:          [255, 144, 30]    # Orange
+  hard-hat:        [0, 255, 0]       # Green
+  safety-vest:     [0, 255, 255]     # Cyan
+  gloves:          [255, 0, 255]     # Magenta
+  safety-goggles:  [0, 200, 255]     # Yellow-ish
+  face-mask:       [100, 200, 100]   # Light green
+  safety-boots:    [200, 100, 0]     # Dark blue
+  harness:         [0, 128, 255]     # Orange-blue
+  ear-protection:  [128, 0, 255]     # Purple
+
+# --- Compliance Rules ---
+# Define which PPE items are REQUIRED for each zone
+compliance_rules:
+  default:                          # Applied when no zone defined
+    required:
+      - hard-hat
+      - safety-vest
+    recommended:
+      - gloves
+      - safety-goggles
+
+  construction_zone:
+    required:
+      - hard-hat
+      - safety-vest
+      - safety-boots
+      - gloves
+    recommended:
+      - safety-goggles
+      - ear-protection
+
+  chemical_zone:
+    required:
+      - hard-hat
+      - safety-vest
+      - gloves
+      - safety-goggles
+      - face-mask
+    recommended:
+      - safety-boots
+
+  height_zone:
+    required:
+      - hard-hat
+      - harness
+      - safety-boots
+    recommended:
+      - safety-vest
+      - gloves
+
+  noise_zone:
+    required:
+      - hard-hat
+      - ear-protection
+      - safety-vest
+    recommended:
+      - safety-boots
+
+# --- Spatial Association ---
+# How close (in pixels) a PPE item must be to a person to be "worn"
+association_distance: 0.7   # fraction of person bbox height/width
+
+# --- PPE Body Region Map ---
+# Used for spatial association logic
+body_regions:
+  hard-hat:        head           # top 25% of person bbox
+  safety-goggles:  head
+  ear-protection:  head
+  face-mask:       head
+  safety-vest:     torso          # middle 50%
+  harness:         torso
+  gloves:          hands          # lower-side regions
+  safety-boots:    feet           # bottom 20%
+
+# --- Alert Settings ---
+alerts:
+  sound_enabled: true
+  sound_file: "alerts/violation_alert.wav"  # fallback to beep if missing
+  alert_cooldown_seconds: 5                  # don't repeat alert for same person
+  violation_color: [0, 0, 255]              # Red for violations
+  compliant_color: [0, 255, 0]              # Green for compliance
+
+# --- Logging ---
+logging:
+  enabled: true
+  log_dir: "logs/"
+  log_format: "csv"        # csv or json
+  screenshot_on_violation: true
+  screenshot_dir: "logs/screenshots/"
